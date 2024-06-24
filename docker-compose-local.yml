@@ -1,0 +1,22 @@
+services:
+  hybridhub-redis:
+    container_name: hybridhub-redis
+    build:
+      dockerfile: Dockerfile
+      context: ./redis
+    image: seunggison/hybridhub-redis
+    ports:
+      - "6379:6379"
+  hybridhub-database:
+    container_name: hybridhub-database
+    build:
+      dockerfile: Dockerfile
+      context: ./db
+    image: seunggison/hybridhub-database
+    environment:
+      - MARIADB_DATABASE=hybridhub
+      - MARIADB_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+    volumes:
+      - ./db/config:/etc/mysql/conf.d
+    ports:
+      - "3306:3306"
