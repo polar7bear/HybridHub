@@ -1,20 +1,20 @@
 services:
   hybridhub-redis:
-    container_name: hybridhub-redis
+    container_name: pharmago-redis
     build:
       dockerfile: Dockerfile
       context: ./redis
-    image: seunggison/hybridhub-redis
+    image: seunggison/pharmago-redis
     ports:
       - "6379:6379"
   hybridhub-database:
-    container_name: hybridhub-database
+    container_name: pharmago-database
     build:
       dockerfile: Dockerfile
       context: ./db
-    image: seunggison/hybridhub-database
+    image: seunggison/pharmago-database
     environment:
-      - MARIADB_DATABASE=hybridhub
+      - MARIADB_DATABASE=pharmago
       - MARIADB_ROOT_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
     volumes:
       - ./db/config:/etc/mysql/conf.d
