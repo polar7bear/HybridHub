@@ -4,11 +4,15 @@ import com.pharmago.PharmaGo.AbstractIntegrationContainerTest;
 import com.pharmago.PharmaGo.pharmacy.entity.Pharmacy;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PharmacyRepositoryTest extends AbstractIntegrationContainerTest {
 
@@ -65,6 +69,27 @@ public class PharmacyRepositoryTest extends AbstractIntegrationContainerTest {
 
         // then
         Assertions.assertEquals(1, res.size());
+    }
+
+    @Test
+    @DisplayName("BaseTimeEntity 등록")
+    void baseTimeEntity() {
+        // given
+        LocalDateTime now = LocalDateTime.now();
+        String address = "호수로838번길";
+        String name = "세화 약국";
+
+        Pharmacy pharmacy = Pharmacy.builder()
+                .pharmacyAddress(address)
+                .pharmacyName(name)
+                .build();
+
+        // when
+        Pharmacy save = pharmacyRepository.save(pharmacy);
+
+        // then
+        assertTrue(save.getCreateAt().isAfter(now));
+        assertTrue(save.getUpdateAt().isAfter(now));
     }
 
 }
