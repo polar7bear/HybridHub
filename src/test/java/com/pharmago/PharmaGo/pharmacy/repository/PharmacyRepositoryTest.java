@@ -88,8 +88,8 @@ public class PharmacyRepositoryTest extends AbstractIntegrationContainerTest {
         Pharmacy save = pharmacyRepository.save(pharmacy);
 
         // then
-        assertTrue(save.getCreateAt().isAfter(now));
-        assertTrue(save.getUpdateAt().isAfter(now));
+        assertTrue(save.getCreatedAt().isAfter(now));
+        assertTrue(save.getUpdatedAt().isAfter(now));
     }
 
 }
