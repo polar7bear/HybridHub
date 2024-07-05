@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
@@ -24,6 +27,11 @@ public class SearchService {
     @Value("${kakao.rest-api-key}")
     private String apiKey;
 
+    @Retryable(
+            value = {RuntimeException.class},
+            maxAttempts = 2,
+            backoff = @Backoff(delay = 2000)
+    )
     public KakaoApiResponseDto searchAddress(String address) {
 
         if (ObjectUtils.isEmpty(address)) return null;
@@ -37,5 +45,11 @@ public class SearchService {
 
         return restTemplate.exchange(uri, HttpMethod.GET, entity, KakaoApiResponseDto.class).getBody();
 
+    }
+
+    @Recover
+    public KakaoApiResponseDto recover(RuntimeException e, String address) {
+        log.error("모든 Retry가 실패하였습니다. 주소: {}, 에러: {}", address, e.getMessage());
+        return null;
     }
 }
