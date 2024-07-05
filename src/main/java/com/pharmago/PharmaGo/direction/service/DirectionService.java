@@ -2,11 +2,12 @@ package com.pharmago.PharmaGo.direction.service;
 
 import com.pharmago.PharmaGo.api.dto.DocumentDto;
 import com.pharmago.PharmaGo.direction.entity.Direction;
-import com.pharmago.PharmaGo.pharmacy.dto.PharmacyDto;
+import com.pharmago.PharmaGo.direction.repository.DirectionRepository;
 import com.pharmago.PharmaGo.pharmacy.service.PharmacySearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,6 +24,15 @@ public class DirectionService {
     private final static double RADIUS_KM = 10.0;
 
     private final PharmacySearchService pharmacySearchService;
+
+    private final DirectionRepository directionRepository;
+
+    public List<Direction> saveAll(List<Direction> directions) {
+        if (CollectionUtils.isEmpty(directions)) {
+            return Collections.emptyList();
+        }
+        return directionRepository.saveAll(directions);
+    }
 
     public List<Direction> buildDirectionList(DocumentDto documentDto) {
         if (Objects.isNull(documentDto)) return Collections.emptyList();
