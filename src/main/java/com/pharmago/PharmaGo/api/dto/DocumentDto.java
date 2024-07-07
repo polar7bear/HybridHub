@@ -20,4 +20,11 @@ public class DocumentDto {
 
     @JsonProperty("y")
     private double latitude;
+
+    // 카테고리 검색 필드
+    @JsonProperty("place_name")
+    private String placeName;
+
+    @JsonProperty("distance")
+    private double distance;
 }
