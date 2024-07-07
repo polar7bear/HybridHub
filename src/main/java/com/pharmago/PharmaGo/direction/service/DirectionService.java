@@ -1,6 +1,7 @@
 package com.pharmago.PharmaGo.direction.service;
 
 import com.pharmago.PharmaGo.api.dto.DocumentDto;
+import com.pharmago.PharmaGo.api.service.SearchService;
 import com.pharmago.PharmaGo.direction.entity.Direction;
 import com.pharmago.PharmaGo.direction.repository.DirectionRepository;
 import com.pharmago.PharmaGo.pharmacy.service.PharmacySearchService;
@@ -27,6 +28,8 @@ public class DirectionService {
 
     private final DirectionRepository directionRepository;
 
+    private final SearchService searchService;
+
     public List<Direction> saveAll(List<Direction> directions) {
         if (CollectionUtils.isEmpty(directions)) {
             return Collections.emptyList();
@@ -52,6 +55,27 @@ public class DirectionService {
                                 .build())
                 .filter(direction -> direction.getDistance() <= RADIUS_KM)
                 .sorted(Comparator.comparingDouble(Direction::getDistance))
+                .limit(MAX_SEARCH_COUNT)
+                .collect(Collectors.toList());
+    }
+
+    public List<Direction> buildDirectionListByCategory(DocumentDto documentDto) {
+        if (Objects.isNull(documentDto)) return Collections.emptyList();
+
+        return searchService.searchCategory(documentDto.getLatitude(), documentDto.getLongitude(), RADIUS_KM)
+                .getDocumentList()
+                .stream()
+                .map(target ->
+                        Direction.builder()
+                                .inputAddress(documentDto.getAddressName())
+                                .inputLatitude(documentDto.getLatitude())
+                                .inputLongitude(documentDto.getLongitude())
+                                .targetPharmacyName(target.getPlaceName())
+                                .targetAddress(target.getAddressName())
+                                .targetLatitude(target.getLatitude())
+                                .targetLongitude(target.getLongitude())
+                                .distance(target.getDistance() * 0.0001)
+                                .build())
                 .limit(MAX_SEARCH_COUNT)
                 .collect(Collectors.toList());
     }

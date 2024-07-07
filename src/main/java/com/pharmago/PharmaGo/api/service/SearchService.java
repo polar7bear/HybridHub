@@ -24,6 +24,8 @@ public class SearchService {
     private final RestTemplate restTemplate;
     private final UriBuilderService uriBuilderService;
 
+    private final static String CATEGORY = "PM9";
+
     @Value("${kakao.rest-api-key}")
     private String apiKey;
 
@@ -36,7 +38,7 @@ public class SearchService {
 
         if (ObjectUtils.isEmpty(address)) return null;
 
-        URI uri = uriBuilderService.buildUri(address);
+        URI uri = uriBuilderService.buildUriByAddress(address);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set(HttpHeaders.AUTHORIZATION, "KakaoAK " + apiKey);
@@ -51,5 +53,15 @@ public class SearchService {
     public KakaoApiResponseDto recover(RuntimeException e, String address) {
         log.error("모든 Retry가 실패하였습니다. 주소: {}, 에러: {}", address, e.getMessage());
         return null;
+    }
+
+    public KakaoApiResponseDto searchCategory(double latitude, double longitude, double radius) {
+        URI uri = uriBuilderService.buildUriByCategory(latitude, longitude, radius, CATEGORY);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.set(HttpHeaders.AUTHORIZATION, "KakaoAK " + apiKey);
+
+        HttpEntity entity = new HttpEntity(httpHeaders);
+
+        return restTemplate.exchange(uri, HttpMethod.GET, entity, KakaoApiResponseDto.class).getBody();
     }
 }
