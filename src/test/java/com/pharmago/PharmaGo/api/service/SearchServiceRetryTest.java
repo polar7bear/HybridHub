@@ -61,7 +61,7 @@ class SearchServiceRetryTest extends AbstractIntegrationContainerTest {
         KakaoApiResponseDto expectedResponse = new KakaoApiResponseDto(metaDto, Arrays.asList(documentDto));
         String uri = mockWebServer.url("/").toString();
 
-        when(uriBuilderService.buildUri(address)).thenReturn(URI.create(uri));
+        when(uriBuilderService.buildUriByAddress(address)).thenReturn(URI.create(uri));
 
         // when
         mockWebServer.enqueue(new MockResponse().setResponseCode(504));
@@ -77,7 +77,7 @@ class SearchServiceRetryTest extends AbstractIntegrationContainerTest {
         assertEquals(1, kakaoApiResult.getMetaDto().getTotalCount());
         assertEquals(address, kakaoApiResult.getDocumentList().get(0).getAddressName());
 
-        verify(uriBuilderService, times(2)).buildUri(address);
+        verify(uriBuilderService, times(2)).buildUriByAddress(address);
     }
 
     @Test
@@ -93,7 +93,7 @@ class SearchServiceRetryTest extends AbstractIntegrationContainerTest {
         KakaoApiResponseDto res = searchService.searchAddress(address);
 
         // then
-        verify(uriBuilderService, times(2)).buildUri(address);
+        verify(uriBuilderService, times(2)).buildUriByAddress(address);
         assertNull(res);
     }
 }

@@ -19,7 +19,7 @@ class UriBuilderServiceTest extends Specification {
         def charset = StandardCharsets.UTF_8
 
         when:
-        def uri = uriBuilderService.buildUri(address) // def 는 동적 변수 할당으로 var와 비슷한 개념
+        def uri = uriBuilderService.buildUriByAddress(address) // def 는 동적 변수 할당으로 var와 비슷한 개념
         def decoded = URLDecoder.decode(uri.toString(), charset)
 
         then:

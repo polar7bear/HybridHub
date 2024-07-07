@@ -28,7 +28,7 @@ class UriBuilderServiceTestToJava {
         Charset charset = StandardCharsets.UTF_8;
 
         //when
-        URI uri = uriBuilderService.buildUri(address);
+        URI uri = uriBuilderService.buildUriByAddress(address);
         String decoded = URLDecoder.decode(uri.toString(), charset);
 
         //then
