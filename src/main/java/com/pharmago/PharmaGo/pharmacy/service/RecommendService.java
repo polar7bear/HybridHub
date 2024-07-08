@@ -1,5 +1,6 @@
 package com.pharmago.PharmaGo.pharmacy.service;
 
+import com.pharmago.PharmaGo.api.dto.AddressResponseDto;
 import com.pharmago.PharmaGo.api.dto.DocumentDto;
 import com.pharmago.PharmaGo.api.dto.KakaoApiResponseDto;
 import com.pharmago.PharmaGo.api.service.SearchService;
@@ -10,8 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -21,17 +24,23 @@ public class RecommendService {
     private final DirectionService directionService;
     private final SearchService searchService;
 
-    public void recommendPharmacyList(String address) {
+    public List<AddressResponseDto> recommendPharmacyList(String address) {
         KakaoApiResponseDto searchedDto = searchService.searchAddress(address);
 
         if (Objects.isNull(searchedDto) || CollectionUtils.isEmpty(searchedDto.getDocumentList())) {
             log.error("[RecommendService recommendPharmacyList] Search result is empty or null. address: {}", address);
-            return;
+            return Collections.emptyList();
         }
 
-        DocumentDto documentDto = searchedDto.getDocumentList().get(0);
+        DocumentDto documentDto = searchedDto.getDocumentList().getFirst();
         List<Direction> directions = directionService.buildDirectionList(documentDto);
-        directionService.saveAll(directions);
+
+        log.info("[RecommendService recommendPharmacyList] Directions: {}", directions.get(0).getTargetPharmacyName());
+
+        return directionService.saveAll(directions)
+                .stream()
+                .map(AddressResponseDto::from)
+                .collect(Collectors.toList());
     }
 
 }
