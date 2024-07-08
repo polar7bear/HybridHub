@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>PharmaGo</title>
+    <!-- 부트스트랩 CSS 추가 -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+    <style>
+        .grid-image, .h2-title {
+            display: flex;
+            justify-content: center;
+        }
+        img {
+            margin: 0 0 5px;
+            width: 70%;
+            height: 550px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h2 class="h2-title">Pharmacy Recommendation Results</h2>
+</div>
+
+<table class="table table-hover">
+    <tr>
+        <th>약국명</th>
+        <th>약국 주소</th>
+        <th>거리</th>
+        <th>길안내 링크</th>
+        <th>로드뷰 링크</th>
+    </tr>
+    <tr th:each="pharmacy : ${pharmacyList}">
+        <td th:text="${pharmacy.pharmacyName}">Pharmacy Name</td>
+        <td th:text="${pharmacy.pharmacyAddress}">Pharmacy Address</td>
+        <td th:text="${pharmacy.distance}">Distance</td>
+        <td><a th:href="${pharmacy.directionUrl}" th:text="${pharmacy.directionUrl}">Direction URL</a></td>
+        <td><a th:href="${pharmacy.roadViewUrl}" th:text="${pharmacy.roadViewUrl}">Road View URL</a></td>
+    </tr>
+</table>
+<div class="grid-image">
+    <img th:src="@{/images/kakao.png}" alt="kakao" class="img-responsive img-rounded">
+</div>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+</body>
+</html>
