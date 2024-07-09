@@ -12,4 +12,7 @@ spring:
     show-sql: true
 
 kakao:
-  rest-api-key: ${kakao.rest-api-key}
+  rest-api-key: ${KAKAO_REST_API_KEY}
+
+base:
+  url: http://localhost:8081/find/
