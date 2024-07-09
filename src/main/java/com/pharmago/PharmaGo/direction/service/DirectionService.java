@@ -1,6 +1,7 @@
 package com.pharmago.PharmaGo.direction.service;
 
 import com.pharmago.PharmaGo.api.dto.DocumentDto;
+import com.pharmago.PharmaGo.api.service.Base62Service;
 import com.pharmago.PharmaGo.api.service.SearchService;
 import com.pharmago.PharmaGo.direction.entity.Direction;
 import com.pharmago.PharmaGo.direction.repository.DirectionRepository;
@@ -8,7 +9,9 @@ import com.pharmago.PharmaGo.pharmacy.service.PharmacySearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -30,6 +33,11 @@ public class DirectionService {
 
     private final SearchService searchService;
 
+    private final Base62Service base62Service;
+
+    private final static String DIRECTION_URL = "https://map.kakao.com/link/map/";
+
+    @Transactional
     public List<Direction> saveAll(List<Direction> directions) {
         if (CollectionUtils.isEmpty(directions)) {
             return Collections.emptyList();
@@ -78,6 +86,14 @@ public class DirectionService {
                                 .build())
                 .limit(MAX_SEARCH_COUNT)
                 .collect(Collectors.toList());
+    }
+
+    public String findDirectionUrlById(String encoded) {
+        Long decoded = base62Service.decode(encoded);
+        Direction direction = directionRepository.findById(decoded).orElse(null);
+        String directionUrl = DIRECTION_URL + direction.getTargetPharmacyName() + "," + direction.getTargetLatitude() + "," + direction.getTargetLongitude();
+
+        return UriComponentsBuilder.fromHttpUrl(directionUrl).toUriString();
     }
 
     // Haversine formula 알고리즘

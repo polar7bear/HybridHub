@@ -3,11 +3,13 @@ package com.pharmago.PharmaGo.pharmacy.service;
 import com.pharmago.PharmaGo.api.dto.AddressResponseDto;
 import com.pharmago.PharmaGo.api.dto.DocumentDto;
 import com.pharmago.PharmaGo.api.dto.KakaoApiResponseDto;
+import com.pharmago.PharmaGo.api.service.Base62Service;
 import com.pharmago.PharmaGo.api.service.SearchService;
 import com.pharmago.PharmaGo.direction.entity.Direction;
 import com.pharmago.PharmaGo.direction.service.DirectionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -24,6 +26,11 @@ public class RecommendService {
     private final DirectionService directionService;
     private final SearchService searchService;
 
+    private final Base62Service base62Service;
+
+    @Value("${base.url}")
+    private String baseUrl;
+
     public List<AddressResponseDto> recommendPharmacyList(String address) {
         KakaoApiResponseDto searchedDto = searchService.searchAddress(address);
 
@@ -39,7 +46,7 @@ public class RecommendService {
 
         return directionService.saveAll(directions)
                 .stream()
-                .map(AddressResponseDto::from)
+                .map(dir -> AddressResponseDto.from(dir, baseUrl + base62Service.encode(dir.getId())))
                 .collect(Collectors.toList());
     }
 
