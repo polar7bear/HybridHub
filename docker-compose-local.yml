@@ -1,5 +1,5 @@
 services:
-  hybridhub-redis:
+  pharmago-redis:
     container_name: pharmago-redis
     build:
       dockerfile: Dockerfile
@@ -7,7 +7,7 @@ services:
     image: seunggison/pharmago-redis
     ports:
       - "6379:6379"
-  hybridhub-database:
+  pharmago-database:
     container_name: pharmago-database
     build:
       dockerfile: Dockerfile
