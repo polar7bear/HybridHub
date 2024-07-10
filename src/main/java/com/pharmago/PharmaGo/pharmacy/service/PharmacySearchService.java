@@ -1,5 +1,6 @@
 package com.pharmago.PharmaGo.pharmacy.service;
 
+import com.pharmago.PharmaGo.pharmacy.cache.PharmacyRedisService;
 import com.pharmago.PharmaGo.pharmacy.dto.PharmacyDto;
 import com.pharmago.PharmaGo.pharmacy.entity.Pharmacy;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +16,16 @@ import java.util.stream.Collectors;
 public class PharmacySearchService {
 
     private final PharmacyService pharmacyService;
+    private final PharmacyRedisService pharmacyRedisService;
 
     public List<PharmacyDto> searchPharmacyDtoList() {
         // redis
+        List<PharmacyDto> list = pharmacyRedisService.findAll();
+
+        if (!list.isEmpty()) {
+            log.info("Found {} pharmacies in Redis", list.size());
+            return list;
+        }
 
         //db
         return pharmacyService.findAll()
