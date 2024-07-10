@@ -26,7 +26,7 @@ public class SearchService {
 
     private final static String CATEGORY = "PM9";
 
-    @Value("${kakao.rest-api-key}")
+    @Value("${kakao.rest.api.key}")
     private String apiKey;
 
     @Retryable(
