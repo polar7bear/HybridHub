@@ -20,6 +20,7 @@ class PharmacyRedisServiceTest extends AbstractIntegrationContainerTest {
         pharmacyRedisService.findAll().forEach(dto -> pharmacyRedisService.delete(dto.getId()));
     }
 
+
     @Test
     @DisplayName("레디스 save 성공")
     void save() {

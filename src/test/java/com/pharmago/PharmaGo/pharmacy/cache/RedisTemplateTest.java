@@ -18,6 +18,7 @@ public class RedisTemplateTest extends AbstractIntegrationContainerTest {
     @Autowired
     private RedisTemplate redisTemplate;
 
+
     @Test
     @DisplayName("레디스 String 자료구조 테스트")
     void String() {
