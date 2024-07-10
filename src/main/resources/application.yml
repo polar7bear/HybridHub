@@ -1,12 +1,14 @@
 spring:
   profiles:
-    active: local # default profile
+    active: local
     group:
       local:
         - common
       prod:
         - common
 
+server:
+  port: 8081
 ---
 spring:
   config:
@@ -14,9 +16,7 @@ spring:
       on-profile: common
 
 kakao:
-  rest:
-    api:
-      key: ${KAKAO_REST_API_KEY}
+  rest-api-key: ${KAKAO_REST_API_KEY}
 
 ---
 spring:
