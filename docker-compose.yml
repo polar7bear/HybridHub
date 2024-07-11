@@ -26,8 +26,8 @@ services:                                               # 이 항목 밑에 실�
     container_name: pharmago-app
     build: .
     depends_on:          # DB, REDIS 컨테이너가 실행된 다음 WEB을 실행시킨다.
-      - pharmago-database
       - pharmago-redis
+      - pharmago-database
     image: seunggison/pharmago-app
     environment:
       - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
@@ -35,7 +35,7 @@ services:                                               # 이 항목 밑에 실�
       - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
       - KAKAO_REST_API_KEY=${KAKAO_REST_API_KEY}
     ports:
-      - "80:8081"
+      - "80:8080"
     restart: always # depends on은 실행 순서만 컨트롤 할뿐,
       # 컨테이너 안의 서비스가 실행가능한 상태인지까지는 확인 하지 않기 때문에
     # DB 또는 Redis가 아직 실행가능한 상태가 아니여서 실패하는 경우 재시작 하도록 설정
