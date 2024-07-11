@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: prod
     group:
       local:
         - common
@@ -60,4 +60,4 @@ spring:
     show-sql: true
 
 base:
-  url: http://localhost/find/
+  url: http://43.202.247.102/find/
