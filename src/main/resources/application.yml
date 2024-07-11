@@ -57,4 +57,4 @@ spring:
     show-sql: true
 
 base:
-  url: http://43.202.247.102/find/
+  url: http://43.200.208.130/find/
