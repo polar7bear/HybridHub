@@ -1,14 +1,11 @@
 spring:
   profiles:
-    active: prod
+    active: local
     group:
       local:
         - common
       prod:
         - common
-
-server:
-  port: 8081
 ---
 spring:
   config:
@@ -38,7 +35,7 @@ spring:
     show-sql: true
 
 base:
-  url: http://localhost:8081/find/
+  url: http://localhost:8080/find/
 
 ---
 spring:
