@@ -1,3 +1,4 @@
+# PharmaGo
 # 사용자 위치 기반 약국 추천 서비스
 
 
@@ -44,3 +45,4 @@
 
 ## 시연 영상
 
+![화면 기록 2024-07-12 오후 2 34 30](https://github.com/user-attachments/assets/c805ade6-8eec-456c-b582-46a89251fe83)
