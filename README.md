@@ -47,5 +47,14 @@
 
 https://github.com/user-attachments/assets/f7aef539-90a6-4c99-ac99-a09632984705
 
+<br>
+
+
+https://github.com/user-attachments/assets/b611e209-0f0d-4c04-a86c-f05ad76d2028
+
+10km 이내의 가장 가까운 약국 최대 3곳을 조회하여 거리순으로 정렬합니다.
+
+
+
 
 
