@@ -6,14 +6,12 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 
     <style>
-        .grid-image{
-            display: flex;
-            justify-content: center;
+        .container {
+            margin-top: 80px;
         }
-        img {
-            margin: 20px 0 20px;
-            width: 50%;
-            height: 450px;
+
+        button {
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -22,7 +20,7 @@
     <div>
         <div class="container">
             <div>
-                <h2>Pharmacy Recommendation</h2>
+                <h2>PharmaGo</h2>
             </div>
             <div class="body">
                 <form th:action="@{/search}" method="post">
@@ -36,11 +34,6 @@
                     </div>
                 </form>
             </div>
-            <div class="grid-image">
-                <img th:src="@{/images/map.png}" alt="map" class="img-responsive img-rounded">
-                <img th:src="@{/images/road.png}" alt="road" class="img-responsive img-rounded">
-            </div>
-<!--            <div th:insert="~{footer :: footerFragment}"></div>-->
         </div>
     </div>
 </div>
