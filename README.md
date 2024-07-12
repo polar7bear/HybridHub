@@ -22,19 +22,22 @@
 
 ## 프로젝트 개발 환경 및 기술 스택
 
-- **Language** : Java 21
-- **Build** : Gradle
-- **Framework** : Spring Boot 3.2.3
-- **Library** : Spring Data JPA, Thymeleaf, base62
-- **Database** : MariaDB
-- **DevOps** : Docker, AWS EC2
-- **Test** : Junit5, Mockito
-- **Open API** : Kakao Map API
-- **Data** : 공공데이터포털
+- **Language**: Java 21
+- **Build**: Gradle
+- **Framework**: Spring Boot 3.2.3
+- **Library**: Spring Data JPA, Thymeleaf, base62
+- **Database**: MariaDB
+- **Cache**: Redis
+- **DevOps**: Docker, AWS EC2
+- **Test**: Junit5, Mockito
+- **Open API**: Kakao Map API
+- **Data**: 공공데이터포털
 
 <br>
 
 ## ERD 설계
+
+![PharmaGo](https://github.com/user-attachments/assets/bac5fa41-06c7-4d07-a9fd-8a219b26e011)
 
 <br>
 
@@ -42,6 +45,8 @@
 <br>
 
 ## 서비스 아키텍처
+
+<img width="912" alt="스크린샷 2024-07-12 오후 3 53 06" src="https://github.com/user-attachments/assets/e6e61e68-327a-420d-92ab-a83ce27e7ac4">
 
 ## 시연 영상
 
