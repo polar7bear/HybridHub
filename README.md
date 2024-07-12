@@ -45,4 +45,7 @@
 
 ## 시연 영상
 
-![화면 기록 2024-07-12 오후 2 34 30](https://github.com/user-attachments/assets/c805ade6-8eec-456c-b582-46a89251fe83)
+https://github.com/user-attachments/assets/f7aef539-90a6-4c99-ac99-a09632984705
+
+
+
