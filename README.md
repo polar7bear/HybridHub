@@ -33,7 +33,7 @@
 
 - **Language**: Java 21
 - **Build**: Gradle
-- **Framework**: Spring Boot 3.2.3
+- **Framework**: Spring Boot 3.3.0
 - **Library**: Spring Data JPA, Thymeleaf, base62
 - **Database**: MariaDB
 - **Cache**: Redis
